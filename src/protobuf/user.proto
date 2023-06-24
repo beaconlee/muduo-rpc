@@ -1,0 +1,60 @@
+syntax = "proto3";
+package fixbug;
+
+//import "comm.proto";
+import "src/protobuf/comm.proto";
+
+option cc_generic_services = true;
+
+message LoginRequest
+{
+  string name = 1;
+  string pwd = 2;
+}
+
+message LoginResponse
+{
+  ResultCode result = 1;
+  bool sucess = 2;
+}
+
+message RegRequest
+{
+  string name = 1;
+  string pwd = 2;
+  int32 age = 3;
+  enum SEX
+  {
+    MAN = 0;
+    WOMAN = 1;
+  }
+  SEX sex = 4;
+  string phone = 5;
+}
+
+message Response
+{
+  int32 errorno = 1;
+  string errormsg = 2;
+  bool result = 3;
+}
+
+message RegisterRequest
+{
+  uint32 id = 1;
+  bytes name = 2;
+  bytes pwd = 3;
+}
+
+message RegisterResponse
+{
+  ResultCode result = 1;
+  bool sucess = 2;
+}
+
+// 定义RPC服务接口类和服务方法
+service UserServiceRpc
+{
+rpc Login(LoginRequest) returns (LoginResponse);
+rpc Register(RegisterRequest) returns (RegisterResponse);
+}
